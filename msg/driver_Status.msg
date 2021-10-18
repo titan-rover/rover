@@ -1,0 +1,3 @@
+bool autoActive
+float32 goto_lat
+float32 goto_lon
