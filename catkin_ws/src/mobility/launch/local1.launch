@@ -1,0 +1,4 @@
+<launch>
+<node pkg="mobility" type="roverESC.py" name="roverESC"/>
+<include file="/home/rover/catkin_ws/src/multijoy/launch/multijoy1.launch"/>
+</launch>
