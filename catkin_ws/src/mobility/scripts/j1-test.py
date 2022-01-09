@@ -115,15 +115,15 @@ def j1_callback(data):
 
             if j1_CCW == 1 and j1_CW == 0:
                 telem.cmd_msg[3] = '1'
-                #print("CCW")
+                print("CCW")
 
             elif j1_CW == 1 and j1_CCW == 0:
                 telem.cmd_msg[3] = '0'
-                #print("CW")
+                print("CW")
 
             else: #j1_CCW == 0 and j1_CW == 0:
                 telem.cmd_msg[3] = '2'
-                #print("no Movement")
+                print("no Movement")
 
             telem_pub.publish(telem)
 
