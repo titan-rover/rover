@@ -117,7 +117,7 @@ def saber_callback(data):
         print(telem.mode)
         telem_pub.publish(telem)
 
-    if(telem.mode in {ARM,BOTH}):
+    if(telem.mode in {TYPER}):
     #for j2 commands
        j2_button_fwd = j1_b[2]
        j2_button_bck = j1_b[3]
@@ -126,29 +126,29 @@ def saber_callback(data):
        j3_button_bck = j1_b[5]
        if(j3_button_fwd):
            print("j3fwd")
-           linear_actuators.send(4,127)
-           #linear_actuators.send(0,0)
+           typer_tool.send(4,127)
+           #typer_tool.send(0,0)
        elif(j3_button_bck):
-           linear_actuators.send(5,127) #if not stop LA
-          # linear_actuators.send(1,0)
+           typer_tool.send(5,127) #if not stop LA
+          # typer_tool.send(1,0)
            print("j3bck")
        else:
-           linear_actuators.send(4,0)
-           linear_actuators.send(5,0)
+           typer_tool.send(4,0)
+           typer_tool.send(5,0)
        if(j2_button_fwd):
-           linear_actuators.send(1,127)
-          # linear_actuators.send(5,0)
+           typer_tool.send(1,127)
+          # typer_tool.send(5,0)
            print("j2fwd")
 
        elif(j2_button_bck):
-           linear_actuators.send(0,127) #if not stop LA
-           #linear_actuators.send(4,0)
+           typer_tool.send(0,127) #if not stop LA
+           #typer_tool.send(4,0)
            print("j2bck")
-           #linear_actuators.send(1,0)
-           #linear_actuators.send(4,0)
+           #typer_tool.send(1,0)
+           #typer_tool.send(4,0)
        else:
-           linear_actuators.send(0,0)
-           linear_actuators.send(1,0)
+           typer_tool.send(0,0)
+           typer_tool.send(1,0)
 
 
 if __name__ == '__main__':
@@ -156,7 +156,7 @@ if __name__ == '__main__':
         setStop()
         rospy.init_node('Saber',anonymous=True)
         last_active = rospy.Time.now()
-        linear_actuators = DriveEsc(ESC_ADDRESS,ESC_MODE,'/dev/serial/by-path/pci-0000:00:14.0-usb-0:2.3:1.0-port0')
+        typer_tool = DriveEsc(ESC_ADDRESS,ESC_MODE,'/dev/serial/by-path/pci-0000:00:14.0-usb-0:2.2:1.0-port0')
         rospy.Subscriber("/multijoy", Multi, saber_callback)
         telem_pub = rospy.Publisher("telemetry", Status, queue_size=1)
         rospy.spin()

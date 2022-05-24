@@ -4,6 +4,7 @@ Author:      Rawal Shree (Github - rawalshree)
 Email:       rawalshreepal000@gmail.com
 Description: PySaber class to write commands directly from TX2 / RPI  to ESC's.
              Just import the package and instantiate (create a object) the class.
+
              Ex.
              from pysaber import DriveEsc
              motors = DriveEsc()
@@ -13,7 +14,7 @@ import time
 import serial, os
 
 class DriveEsc:
-    def __init__(self, address, mode):      # Mode can be "mixed" and "notMixed"
+    def __init__(self, address, mode, port):      # Mode can be "mixed" and "notMixed"
 
         # Hex Addresses For Driving Dual Motors
         self.FORWARD_1 = 0x00
@@ -35,16 +36,12 @@ class DriveEsc:
             self.motor2 = self.FORWARD_2
 
         # Serial instantiation for UART Logic
-        x = os.system('ls /dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0')
-        if x == 0:
-            self.port = '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1.1.1:1.0-port0'
-            print('ESC Rover')
-        else:
-            print('CP210 not found')
+        self.port = port
 
         self.saber = serial.Serial(self.port, 38400)
         self.address = address
 
+        self.saber.flush()
         self.send(0x0E, 6)          # To set Timeout
         self.send(0x0F, 4)          # To set Baudrate
 
@@ -59,7 +56,7 @@ class DriveEsc:
         self.saber.write(msg)
 
         # Flush UART.
-        self.saber.flush()
+        #self.saber.flush()
 
     def drive(self, num, speed):
         """Drive 1 or 2 motor"""
