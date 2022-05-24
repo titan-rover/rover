@@ -1,5 +1,13 @@
 <launch>
     <include file="/opt/ros/melodic/share/master_discovery_fkie/launch/master_discovery.launch"/>
     <include file="/opt/ros/melodic/share/master_sync_fkie/launch/master_sync.launch"/>
-    <node pkg="mobility" type="roverESC.py" name="roverESC"/>
+    <include file="/home/bigzay/catkin_ws/src/multijoy/launch/single_joy.launch" />
+
+<!--
+    <node name="sync_stats" pkg="master_discovery_fkie" type="master_discovery" output="screen">
+        <param name="_mcast_group" value="224.0.0.251"/>
+    </node>
+    <node name="master_sync2" pkg="master_sync_fkie" type="master_sync">
+    </node>
+    -->
 </launch>

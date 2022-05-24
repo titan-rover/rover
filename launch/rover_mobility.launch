@@ -1,0 +1,11 @@
+<launch>
+<node pkg="mobility" type="j1-test.py" name="j1_listener"/>
+<node pkg="mobility" type= "saber_controller.py" name="Saber"/>
+<node pkg="mobility" type="j4-test.py" name="j4_listener"/>
+<node pkg="mobility" type="wrist.py" name="wrist_listener"/>
+<node pkg="mobility" type="j5_2.py" name="j5_2_listener"/>
+
+<node pkg="master_discovery_fkie" type="master_discovery" name="sync_stats">
+    <param name="_mcast_group" value="225.0.0.1"/>
+<node/>
+</launch>
