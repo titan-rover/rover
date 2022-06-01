@@ -1,0 +1,59 @@
+   /*
+    * rosserial Publisher Example
+  * Prints "hello world!"
+     */
+    
+   // Use the following line if you have a Leonardo or MKR1000
+   //#define USE_USBCON
+
+
+#include <Robojax_AllegroACS_Current_Sensor.h>
+#include <ros.h> // for using arduino as ROS node
+#include <std_msgs/Int32.h>
+
+const int VIN_1 = A0; 
+const int VIN_2 = A1;
+const int VIN_3 = A2;
+const int VIN_4 = A3;
+const int VOLT_PIN = A4;
+const float VCC   = 5.04;// supply voltage
+const int MODEL = 17;   // enter the model (see above list)
+        //using ACS770x-200B
+Robojax_AllegroACS_Current_Sensor Wheel_1(MODEL,VIN_1);
+Robojax_AllegroACS_Current_Sensor Wheel_2(MODEL,VIN_2);
+Robojax_AllegroACS_Current_Sensor Wheel_3(MODEL,VIN_3);
+Robojax_AllegroACS_Current_Sensor Wheel_4(MODEL,VIN_4);
+   
+        
+int offset =20;// set the correction offset value
+//Current and Voltage value variables
+int wheel1_current;
+int wheel2_current;
+int wheel3_current;
+int wheel4_current;
+int volt_val;
+double voltage;
+
+ros::NodeHandle nh;
+   
+std_msgs::Int32 adc_msgs;
+ros::Publisher currents("current", &adc_msgs);
+   
+   
+void setup(){
+  nh.initNode();
+  nh.advertise(currents);
+}
+   
+void loop(){
+  adc_msgs.data = 10;
+  currents.publish( &adc_msgs );
+  adc_msgs.data = 15;
+  currents.publish( &adc_msgs );
+  adc_msgs.data = 22;
+  currents.publish( &adc_msgs );
+  adc_msgs.data = 108;
+  currents.publish( &adc_msgs );
+  nh.spinOnce();
+  delay(1000);
+}
