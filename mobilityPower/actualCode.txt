@@ -1,0 +1,140 @@
+/*
+ * 
+ * Arduino Sketch for Allegro ACS770 Current Sensor 
+ * this sensor is offered at 50A, 100A, 150A and 200A range
+  both for AC and DC. 
+  
+ * It operates with 5V
+ * Please watch video instruction and explanation for this code
+  Watch video instruction for ACS770 50A to 200A Sensors https://youtu.be/sB6EULTix2k
+  Watch video instruction for ACS712 5A to 30A Sensors :https://youtu.be/3C33DpcSwIw
+
+ * 
+ * Written by Ahmad Shamshiri on Saturday April 04, 2020 at 21:19 in Ajax, Ontario, Canada
+ * for Robojax.com
+ * View the video :
+ * This code has been downloaded from Robojax.com
+ * 
+model select
+      //ACS712
+      0-"ACS712ELCTR-05B",
+      1-"ACS712ELCTR-20A",
+      2-"ACS712ELCTR-30A",
+      
+      //ACS758
+      3,// for ACS758LCB-050B
+      4,// for ACS758LCB-050U
+      5,// for ACS758LCB-100B
+      6,// for ACS758LCB-100U
+      7,// for ACS758KCB-150B
+      8,// for ACS758KCB-150U
+      9,// for ACS758ECB-200B
+      10,// for ACS758ECB-200U 
+      
+      ///ACS770
+      11,// for ACS770x-050B ///      
+      12,// for ACS770x-050U  
+      13,// for ACS770x-100B
+      14,// for ACS770x-100U
+      15,// for ACS770x-150B
+      16,// for ACS770x-150U
+      17,// for ACS770x-200B  
+      18,// for ACS770x-200U  
+      
+
+      19 for "ACS732KLATR-20AB",
+      20 for "ACS732KLATR-40AB",
+      21 for "ACS732KLATR-65AB", 
+      22 for "ACS732KLATR-65AU",   
+      23 for "ACS732KLATR-75AB", 
+
+      24 for "ACS733KLATR-20AB",
+      25 for "ACS733KLATR-40AB",
+      26 for "ACS733KLATR-40AU", 
+      27 for "ACS733KLATR-65AU",
+
+ * this code has been downloaded from http://robojax.com/learn/arduino/
+ 
+ * Get this code and other Arduino codes from Robojax.com
+Learn Arduino step by step in structured course with all material, wiring diagram and library
+all in once place. Purchase My course on Udemy.com http://robojax.com/L/?id=62
+
+****************************
+Get early access to my videos via Patreon and have  your name mentioned at end of very 
+videos I publish on YouTube here: http://robojax.com/L/?id=63 (watch until end of this video to list of my Patrons)
+****************************
+
+or make donation using PayPal http://robojax.com/L/?id=64
+
+ *  * This code is "AS IS" without warranty or liability. Free to be used as long as you keep this note intact.* 
+ * This code has been download from Robojax.com
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+ */
+#include <ros.h>
+#include <std_msgs/String.h>
+ //Analog pins for current and voltage sensors
+const int VIN_1 = A0; 
+const int VIN_2 = A1;
+const int VIN_3 = A2;
+const int VIN_4 = A3;
+const int VOLT_PIN = A4;
+const float VCC   = 5.04;// supply voltage
+const int MODEL = 17;   // enter the model (see above list)
+        //using ACS770x-200B
+        
+int offset =20;// set the correction offset value
+//Current and Voltage value variables
+int wheel1_current;
+int wheel2_current;
+int wheel3_current;
+int wheel4_current;
+int volt_val;
+double voltage;
+#include <Robojax_AllegroACS_Current_Sensor.h>
+
+Robojax_AllegroACS_Current_Sensor Wheel_1(MODEL,VIN_1);
+Robojax_AllegroACS_Current_Sensor Wheel_2(MODEL,VIN_2);
+Robojax_AllegroACS_Current_Sensor Wheel_3(MODEL,VIN_3);
+Robojax_AllegroACS_Current_Sensor Wheel_4(MODEL,VIN_4);
+
+void setup() {
+    //Robojax.com Allegro ACS Current Sensor 
+    Serial.begin(9600);// initialize serial monitor
+    Serial.println("Robojax Tutorial");
+    Serial.println("ACS770 Current Sensor");
+  
+}
+
+void loop() {
+   //Robojax.com Allegro ACS Current Sensor  
+    wheel1_current = Wheel_1.getCurrent();
+    wheel2_current = Wheel_2.getCurrent();
+    wheel3_current = Wheel_3.getCurrent();
+    wheel4_current = Wheel_4.getCurrent();
+    volt_val = analogRead(VOLT_PIN);
+    voltage = map(volt_val,0,1023,0,2500) + offset;
+    Serial.print("Currents: ");
+    Serial.print(wheel1_current); // print the current with 3 decimal places
+    Serial.print(" ");
+    Serial.print(wheel2_current); // print the current with 3 decimal places
+    Serial.print(" ");
+    Serial.print(wheel3_current); // print the current with 3 decimal places
+    Serial.print(" ");
+    Serial.print(wheel4_current); // print the current with 3 decimal places
+    Serial.print(" ");
+    Serial.println(voltage);
+   
+  delay(1500);
+}

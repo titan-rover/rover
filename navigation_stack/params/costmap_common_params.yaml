@@ -1,0 +1,37 @@
+robot_radius: 0.3
+transform_tolerance: 0.5
+
+
+# laser_layer: 
+#   obstacle_range: 2.5
+#   raytrace_range: 20.0
+#   max_obstacle_height: 0.7
+#   track_unknown_space: true
+#   observation_sources: zedm_laser
+#   zedm_laser:
+#     data_type: LaserScan
+#     topic: zed/scan
+#     marking: true
+#     clearing: true
+#     inf_is_valid: true
+
+
+cloud_layer:
+  obstancle_range: 0.5
+  raytrace_range: 20.0
+  max_obstancle_height: 0.7
+  track_unknown_space: true
+  observation_sources: zedm_cloud
+  zedm_cloud:
+    data_type: PointCloud2
+    topic: zedm/zed_node/point_cloud/cloud_registered
+    marking: true
+    clearing: true
+
+inflation_layer:
+  cost_scaling_factor: 5.0
+  inflation_radius: 0.5
+
+
+
+

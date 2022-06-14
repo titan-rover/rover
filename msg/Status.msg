@@ -1,0 +1,27 @@
+int8 source
+bool armAttached
+int8 mode
+float32 throttle
+string arm_action
+string wheel_action
+string pysaber_mode
+string pysaber_cmd
+string pysaber_motor1
+string pysaber_motor2
+string pysaber_send
+string pysaber_port
+string pyarm_motor1
+string pyarm_motor2
+string pyarm_port
+string pyarm_mode
+string[7] cmd_msg #0:J5, 1:j5_2, 2:j4, 3:J1, 4:servo1, 5:servo2, 6:Solenoid
+string wheel_state
+string j1_fb
+string j2_fb
+string j3_fb
+string j4_fb
+string j5_wrist_fb
+float32 wheel1_amps
+float32 wheel2_amps
+float32 wheel3_amps
+float32 wheel4_amps
