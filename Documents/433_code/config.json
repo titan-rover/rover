@@ -1,0 +1,14 @@
+{
+    "MOBILITY_OP": "0b00",
+    "GPS_OP": "0b01",
+    "TERMINAL_OP": "0b01",
+    "GPIO":{
+        "MODE_PINS": [23, 24],
+        "AUX_PIN": 18
+    },
+    "SERIAL_PATH": "/dev/serial0",
+    "BAUD_RATE": 19200,
+    "TIMEOUT": 1,
+    "HOST": "",
+    "PORT": 8888
+}
